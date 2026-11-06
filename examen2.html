@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CBTA 13 - English V Exam</title>
+  <style>
+    :root {
+      --primary: #1e293b;
+      --accent: #0284c7;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #cbd5e1;
+      --text: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: var(--card-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 800px;
+      padding: 30px;
+      border: 1px solid var(--border);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    header h2 {
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .start-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #0369a1;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      background: #f1f5f9;
+      padding: 8px 12px;
+      border-left: 4px solid var(--accent);
+      margin: 20px 0 15px 0;
+      font-weight: bold;
+    }
+
+    .question-card {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .question-card p {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .options label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .match-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .reading-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 4px;
+      font-style: italic;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .score-card {
+      text-align: center;
+      padding: 20px;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .score-card h3 {
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .review-item {
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .review-item.correct {
+      background-color: #dcfce7;
+      border: 1px solid #86efac;
+      color: #14532d;
+    }
+
+    .review-item.incorrect {
+      background-color: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #7f1d1d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div>
+        <h1>CBTA No. 13 - Extensión Conkal</h1>
+        <small>English V Evaluation</small>
+      </div>
+      <h2>Grammar & Modals</h2>
+    </header>
+
+    <div id="start-screen" class="screen active">
+      <h2>Student Registration</h2>
+      <p style="margin-top: 5px; color: #64748b;">Please enter your personal details to begin the exam.</p>
+
+      <div class="start-form">
+        <div>
+          <label for="student-name">Full Name:</label>
+          <input type="text" id="student-name" placeholder="e.g. Juan Pérez Gómez" required>
+        </div>
+        <div>
+          <label for="student-group">Group / Semester:</label>
+          <input type="text" id="student-group" placeholder="e.g. 5to A - Agropecuario" required>
+        </div>
+        <button type="button" id="btn-start">Start Examination</button>
+      </div>
+    </div>
+
+    <div id="exam-screen" class="screen">
+      <form id="quiz-form" onsubmit="return false;">
+
+        <div class="section-title">Section I: Modals of Obligation & Advice (Should, Must, Have to)</div>
+
+        <div class="question-card">
+          <p>1. Safety rule: You __________ wear protective boots when working with heavy machinery in the field.</p>
+          <div class="options">
+            <label><input type="radio" name="q1" value="a"> a) must</label>
+            <label><input type="radio" name="q1" value="b"> b) should to</label>
+            <label><input type="radio" name="q1" value="c"> c) has to</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>2. You look very tired after working in the greenhouse. You __________ rest for a while.</p>
+          <div class="options">
+            <label><input type="radio" name="q2" value="a"> a) must to</label>
+            <label><input type="radio" name="q2" value="b"> b) should</label>
+            <label><input type="radio" name="q2" value="c"> c) have</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>3. Every morning, the farmer __________ feed the animals before starting other duties.</p>
+          <div class="options">
+            <label><input type="radio" name="q3" value="a"> a) have to</label>
+            <label><input type="radio" name="q3" value="b"> b) has to</label>
+            <label><input type="radio" name="q3" value="c"> c) should to</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>4. Students __________ eat inside the laboratory. It is strictly prohibited!</p>
+          <div class="options">
+            <label><input type="radio" name="q4" value="a"> a) mustn't</label>
+            <label><input type="radio" name="q4" value="b"> b) don't have to</label>
+            <label><input type="radio" name="q4" value="c"> c) shouldn't to</label>
+          </div>
+        </div>
+
+        <div class="section-title">Section II: Modals of Possibility & Probability (May, Could, Would, Might)</div>
+
+        <div class="question-card">
+          <p>5. Look at those dark clouds! It __________ rain later this afternoon.</p>
+          <div class="options">
+            <label><input type="radio" name="q5" value="a"> a) would</label>
+            <label><input type="radio" name="q5" value="b"> b) might</label>
+            <label><input type="radio" name="q5" value="c"> c) has to</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>6. If I had extra money, I __________ buy a new irrigation system for the crops.</p>
+          <div class="options">
+            <label><input type="radio" name="q6" value="a"> a) would</label>
+            <label><input type="radio" name="q6" value="b"> b) must</label>
+            <label><input type="radio" name="q6" value="c"> c) may to</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>7. We __________ visit the agricultural fair tomorrow if we finish our project early.</p>
+          <div class="options">
+            <label><input type="radio" name="q7" value="a"> a) must to</label>
+            <label><input type="radio" name="q7" value="b"> b) may</label>
+            <label><input type="radio" name="q7" value="c"> c) would to</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>8. The soil is very dry. The plants __________ suffer if we don't water them soon.</p>
+          <div class="options">
+            <label><input type="radio" name="q8" value="a"> a) could</label>
+            <label><input type="radio" name="q8" value="b"> b) must to</label>
+            <label><input type="radio" name="q8" value="c"> c) have to</label>
+          </div>
+        </div>
+
+        <div class="section-title">Section III: Simple Present vs. Present Perfect Tense</div>
+        <div class="question-card">
+          <p>Select the correct verb form for each context:</p>
+
+          <div class="match-grid">
+            <span>9. She (work) __________ at the farm every day.</span>
+            <select name="q9">
+              <option value="">-- Choose --</option>
+              <option value="works">works</option>
+              <option value="has worked">has worked</option>
+              <option value="work">work</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>10. I (already / finish) __________ my lab report.</span>
+            <select name="q10">
+              <option value="">-- Choose --</option>
+              <option value="finish">finish</option>
+              <option value="have already finished">have already finished</option>
+              <option value="has finished">has finished</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>11. They (never / see) __________ a shade mesh structure before.</span>
+            <select name="q11">
+              <option value="">-- Choose --</option>
+              <option value="never see">never see</option>
+              <option value="have never seen">have never seen</option>
+              <option value="has never seen">has never seen</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>12. Sunlight (provide) __________ energy for photosynthesis.</span>
+            <select name="q12">
+              <option value="">-- Choose --</option>
+              <option value="provides">provides</option>
+              <option value="has provided">has provided</option>
+              <option value="provide">provide</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>13. We (be) __________ students at CBTA No. 13 since 2024.</span>
+            <select name="q13">
+              <option value="">-- Choose --</option>
+              <option value="are">are</option>
+              <option value="have been">have been</option>
+              <option value="has been">has been</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>14. The agronomist (check) __________ the crop health every week.</span>
+            <select name="q14">
+              <option value="">-- Choose --</option>
+              <option value="checks">checks</option>
+              <option value="has checked">has checked</option>
+              <option value="check">check</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>15. __________ you ever (harvest) __________ habanero peppers?</span>
+            <select name="q15">
+              <option value="">-- Choose --</option>
+              <option value="Do / harvest">Do / harvest</option>
+              <option value="Have / harvested">Have / harvested</option>
+              <option value="Has / harvested">Has / harvested</option>
+            </select>
+          </div>
+
+          <div class="match-grid">
+            <span>16. Organic compost (contain) __________ valuable nutrients for plants.</span>
+            <select name="q16">
+              <option value="">-- Choose --</option>
+              <option value="contains">contains</option>
+              <option value="has contained">has contained</option>
+              <option value="contain">contain</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-title">Section IV: Reading Comprehension & Modal Analysis</div>
+        <div class="reading-box">
+          "Agriculture students at CBTA <strong>have to</strong> follow strict safety protocols in the fields. Currently, our class <strong>has designed</strong> a new micro-tunnel system for organic vegetables. The teacher advised us that we <strong>should</strong> monitor the moisture levels twice a day. If temperatures rise quickly, the heat <strong>might</strong> stress the young crops, so we <strong>could</strong> install shade mesh to protect them."
+        </div>
+
+        <div class="question-card">
+          <p>17. According to the text, what is mandatory (an obligation) for agriculture students?</p>
+          <div class="options">
+            <label><input type="radio" name="q17" value="a"> a) To install shade mesh immediately</label>
+            <label><input type="radio" name="q17" value="b"> b) To follow strict safety protocols in the fields</label>
+            <label><input type="radio" name="q17" value="c"> c) To raise temperatures inside the micro-tunnels</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>18. What recommendation (advice) did the teacher give to the students?</p>
+          <div class="options">
+            <label><input type="radio" name="q18" value="a"> a) They should monitor moisture levels twice a day</label>
+            <label><input type="radio" name="q18" value="b"> b) They must harvest all crops today</label>
+            <label><input type="radio" name="q18" value="c"> c) They would change the project theme</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>19. Which modal verb is used in the text to express a future possibility regarding heat stress?</p>
+          <div class="options">
+            <label><input type="radio" name="q19" value="a"> a) have to</label>
+            <label><input type="radio" name="q19" value="b"> b) should</label>
+            <label><input type="radio" name="q19" value="c"> c) might</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>20. Which sentence from the text is written in the Present Perfect Tense?</p>
+          <div class="options">
+            <label><input type="radio" name="q20" value="a"> a) Agriculture students have to follow strict safety protocols.</label>
+            <label><input type="radio" name="q20" value="b"> b) Our class has designed a new micro-tunnel system.</label>
+            <label><input type="radio" name="q20" value="c"> c) We could install shade mesh to protect them.</label>
+          </div>
+        </div>
+
+        <button type="button" id="btn-submit">Finish and Submit Exam</button>
+      </form>
+    </div>
+
+    <div id="results-screen" class="screen">
+      <h2>Evaluation Results</h2>
+
+      <div class="score-card">
+        <p>Student: <strong id="res-student-name">---</strong></p>
+        <p>Group: <strong id="res-student-group">---</strong></p>
+        <br>
+        <p>Final Score:</p>
+        <h3 id="res-score">0 / 20</h3>
+        <p id="res-percentage" style="font-size: 0.9rem; color: #64748b;">(0%)</p>
+      </div>
+
+      <div class="section-title">Answer Breakdown</div>
+      <div id="review-container"></div>
+
+      <button type="button" onclick="location.reload()">Take Another Test</button>
+    </div>
+
+  </div>
+
+  <script>
+    var studentData = { name: '', group: '' };
+
+    var correctAnswers = { 
+      q1:'a', q2:'b', q3:'b', q4:'a', 
+      q5:'b', q6:'a', q7:'b', q8:'a', 
+      q9:'works', q10:'have already finished', q11:'have never seen', q12:'provides', 
+      q13:'have been', q14:'checks', q15:'Have / harvested', q16:'contains', 
+      q17:'b', q18:'a', q19:'c', q20:'b' 
+    };
+
+    function getAnswerText(key, value) {
+      if (!value) return 'None';
+      var el;
+      if (document.querySelector('select[name="' + key + '"]')) {
+        el = document.querySelector('select[name="' + key + '"] option[value="' + value + '"]');
+        return el ? el.textContent.trim() : value;
+      }
+      el = document.querySelector('input[name="' + key + '"][value="' + value + '"]');
+      return el ? el.parentElement.textContent.trim() : value;
+    }
+
+    document.getElementById('btn-start').addEventListener('click', function() {
+      var nameInput = document.getElementById('student-name').value.trim();
+      var groupInput = document.getElementById('student-group').value.trim();
+
+      if (!nameInput || !groupInput) {
+        alert('Please fill out both your name and group before starting.');
+        return;
+      }
+
+      studentData.name = nameInput;
+      studentData.group = groupInput;
+
+      document.getElementById('start-screen').classList.remove('active');
+      document.getElementById('exam-screen').classList.add('active');
+      window.scrollTo(0, 0);
+    });
+
+    document.getElementById('btn-submit').addEventListener('click', function() {
+      var score = 0;
+      var totalQuestions = Object.keys(correctAnswers).length;
+      var reviewContainer = document.getElementById('review-container');
+      reviewContainer.innerHTML = '';
+
+      var answers = {};
+      var unanswered = [];
+
+      for (var key in correctAnswers) {
+        var selected = '';
+
+        var selectElem = document.querySelector('select[name="' + key + '"]');
+        if (selectElem) {
+          selected = selectElem.value;
+        } else {
+          var checkedRadio = document.querySelector('input[name="' + key + '"]:checked');
+          if (checkedRadio) selected = checkedRadio.value;
+        }
+
+        answers[key] = selected;
+        if (!selected) unanswered.push(key.replace('q', ''));
+      }
+
+      if (unanswered.length > 0) {
+        var proceed = confirm('You have not answered question(s): ' + unanswered.join(', ') +
+          '.\nDo you want to submit anyway?');
+        if (!proceed) return;
+      }
+
+      for (var k in correctAnswers) {
+        var isCorrect = (answers[k] === correctAnswers[k]);
+        if (isCorrect) score++;
+
+        var reviewItem = document.createElement('div');
+        reviewItem.className = 'review-item ' + (isCorrect ? 'correct' : 'incorrect');
+        reviewItem.innerHTML = '<strong>Question ' + k.replace('q', '') + ':</strong> ' +
+          (isCorrect ? 'Correct ✓' : 'Incorrect ✗') +
+          (!isCorrect
+            ? ' (Your answer: <em>' + getAnswerText(k, answers[k]) + '</em> | Correct: <strong>' +
+              getAnswerText(k, correctAnswers[k]) + '</strong>)'
+            : '');
+
+        reviewContainer.appendChild(reviewItem);
+      }
+
+      document.getElementById('res-student-name').textContent = studentData.name;
+      document.getElementById('res-student-group').textContent = studentData.group;
+      document.getElementById('res-score').textContent = score + ' / ' + totalQuestions;
+      document.getElementById('res-percentage').textContent = '(' + Math.round((score / totalQuestions) * 100) + '%)';
+
+      document.getElementById('exam-screen').classList.remove('active');
+      document.getElementById('results-screen').classList.add('active');
+      window.scrollTo(0, 0);
+    });
+  </script>
+</body>
+</html>
